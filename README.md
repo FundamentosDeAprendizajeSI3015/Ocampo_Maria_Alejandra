@@ -2,7 +2,7 @@
 **Estudiante:** Maria Alejandra Ocampo Giraldo  
 
 Este repositorio contiene las actividades del curso organizadas por semanas.  
-La metodología consiste en **subir semanalmente las tareas y talleres correspondientes**, enfocándose en el análisis y preprocesamiento de datos.
+La metodología consiste en **subir semanalmente las tareas y talleres correspondientes del curso Aprendizaje automático**
 
 ---
 
