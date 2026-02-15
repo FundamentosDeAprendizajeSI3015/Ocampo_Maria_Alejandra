@@ -1,13 +1,14 @@
 ======================================================================
-PIPELINE - ENCUESTA DE PROCRASTINACIÓN
+ANÁLISIS ENCUESTA PROCRASTINACIÓN
 ======================================================================
 
-======================================================================
-1. CARGA Y EXPLORACIÓN
-======================================================================
-Dimensiones: 42 filas x 14 columnas
+1. CARGA: 42 filas x 14 columnas
 
-Columnas del dataset:
+======================================================================
+2. INSPECCIÓN RÁPIDA
+======================================================================
+Archivo leído: procastinacion_encuesta.csv
+Columnas disponibles:
   1. id
   2. hora_inicio
   3. hora_fin
@@ -23,7 +24,31 @@ Columnas del dataset:
   13. frecuencia_interferencia_redes
   14. frecuencia_dejar_ultimo_momento
 
-Vista previa:
+Info del dataset:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 42 entries, 0 to 41
+Data columns (total 14 columns):
+ #   Column                              Non-Null Count  Dtype  
+---  ------                              --------------  -----  
+ 0   id                                  42 non-null     int64  
+ 1   hora_inicio                         42 non-null     object 
+ 2   hora_fin                            42 non-null     object 
+ 3   correo                              42 non-null     object 
+ 4   nombre                              0 non-null      float64
+ 5   hora_ultima_modificacion            0 non-null      float64
+ 6   frecuencia_planificacion_tareas     42 non-null     object 
+ 7   frecuencia_dividir_tareas           42 non-null     object 
+ 8   frecuencia_autonomia_sin_presion    42 non-null     object 
+ 9   frecuencia_concentracion_estudio    42 non-null     object 
+ 10  frecuencia_evitar_tareas_dificiles  42 non-null     object 
+ 11  frecuencia_revisar_celular_estudio  42 non-null     object 
+ 12  frecuencia_interferencia_redes      42 non-null     object 
+ 13  frecuencia_dejar_ultimo_momento     42 non-null     object 
+dtypes: float64(2), int64(1), object(11)
+memory usage: 4.7+ KB
+None
+
+Primeras 3 filas:
    id          hora_inicio  ... frecuencia_interferencia_redes frecuencia_dejar_ultimo_momento
 0   1  2026-02-13 13:16:32  ...                        A veces                        Rara vez
 1   2  2026-02-13 13:45:13  ...                 Frecuentemente                         A veces
@@ -31,261 +56,51 @@ Vista previa:
 
 [3 rows x 14 columns]
 
-======================================================================
-2. SELECCIÓN DE VARIABLES RELEVANTES
-======================================================================
-Variables seleccionadas: 8
-  - frecuencia_planificacion_tareas
-  - frecuencia_dividir_tareas
-  - frecuencia_autonomia_sin_presion
-  - frecuencia_concentracion_estudio
-  - frecuencia_evitar_tareas_dificiles
-  - frecuencia_revisar_celular_estudio
-  - frecuencia_interferencia_redes
-  - frecuencia_dejar_ultimo_momento
+3. VARIABLES SELECCIONADAS: 8
 
-Nueva dimensión: (42, 8)
+4. VERIFICACIÓN:
+   NaNs: 0
+   Duplicados: 0
 
-======================================================================
-3. LIMPIEZA INICIAL - NANS Y DUPLICADOS
-======================================================================
-NaNs por columna:
-frecuencia_planificacion_tareas       0
-frecuencia_dividir_tareas             0
-frecuencia_autonomia_sin_presion      0
-frecuencia_concentracion_estudio      0
-frecuencia_evitar_tareas_dificiles    0
-frecuencia_revisar_celular_estudio    0
-frecuencia_interferencia_redes        0
-frecuencia_dejar_ultimo_momento       0
-dtype: int64
-Total NaNs: 0
+5. CONVERSIÓN LIKERT → NUMÉRICO (1-5)
+   Nunca→1, Rara vez→2, A veces→3, Frecuentemente→4, Siempre→5
 
-Filas eliminadas por NaNs: 0
-No hay duplicados
-
-Dimensión después de limpieza: (42, 8)
-
-Verificación NaNs después de limpieza:
-Total NaNs restantes: 0
-
-======================================================================
-4. VALORES ÚNICOS Y VALIDACIÓN
-======================================================================
-Valores únicos por variable:
-
-frecuencia_planificacion_tareas:
-  Valores: ['A veces', 'Rara vez', 'Frecuentemente', 'Siempre', 'Nunca']
-  Total únicos: 5
-
-frecuencia_dividir_tareas:
-  Valores: ['A veces', 'Frecuentemente', 'Nunca', 'Rara vez', 'Siempre']
-  Total únicos: 5
-
-frecuencia_autonomia_sin_presion:
-  Valores: ['Siempre', 'Rara vez', 'Frecuentemente', 'A veces', 'Nunca']
-  Total únicos: 5
-
-frecuencia_concentracion_estudio:
-  Valores: ['Frecuentemente', 'Rara vez', 'A veces', 'Siempre', 'Nunca']
-  Total únicos: 5
-
-frecuencia_evitar_tareas_dificiles:
-  Valores: ['A veces', 'Frecuentemente', 'Rara vez', 'Siempre', 'Nunca']
-  Total únicos: 5
-
-frecuencia_revisar_celular_estudio:
-  Valores: ['Frecuentemente', 'A veces', 'Rara vez', 'Siempre', 'Nunca']
-  Total únicos: 5
-
-frecuencia_interferencia_redes:
-  Valores: ['A veces', 'Frecuentemente', 'Rara vez', 'Siempre', 'Nunca']
-  Total únicos: 5
-
-frecuencia_dejar_ultimo_momento:
-  Valores: ['Rara vez', 'A veces', 'Frecuentemente', 'Siempre', 'Nunca']
-  Total únicos: 5
-
-======================================================================
-5. CONVERSIÓN ESCALA LIKERT A NUMÉRICO
-======================================================================
-Mapeo aplicado:
-  Nunca → 1
-  Rara vez → 2
-  A veces → 3
-  Frecuentemente → 4
-  Siempre → 5
-
-Verificación de conversión:
-   frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-0                                3  ...                                2
-1                                2  ...                                3
-2                                4  ...                                3
-3                                2  ...                                3
-4                                5  ...                                2
-
-[5 rows x 8 columns]
-
-Conversión exitosa sin NaNs
-
-======================================================================
-6. ESTADÍSTICAS DESCRIPTIVAS
-======================================================================
-Tendencia Central:
-        frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-mean                               3.07  ...                             3.31
-median                             3.00  ...                             3.00
+6. TENDENCIA CENTRAL:
+        frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+mean                               3.07                       2.67  ...                            3.83                             3.31
+median                             3.00                       3.00  ...                            4.00                             3.00
 
 [2 rows x 8 columns]
 
-Moda por variable:
-  frecuencia_planificacion_tareas: 3
-  frecuencia_dividir_tareas: 2
-  frecuencia_autonomia_sin_presion: 4
-  frecuencia_concentracion_estudio: 3
-  frecuencia_evitar_tareas_dificiles: 4
-  frecuencia_revisar_celular_estudio: 4
-  frecuencia_interferencia_redes: 4
-  frecuencia_dejar_ultimo_momento: 3
+7. DISPERSIÓN:
+     frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+std                             1.11                       1.12  ...                            0.88                             1.12
+var                             1.24                       1.25  ...                            0.78                             1.24
 
-Dispersión:
-     frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-std                             1.11  ...                             1.12
-var                             1.24  ...                             1.24
-min                             1.00  ...                             1.00
-max                             5.00  ...                             5.00
+[2 rows x 8 columns]
 
-[4 rows x 8 columns]
+8. OUTLIERS (IQR):
+   planificacion_tareas: 0 outliers
+   dividir_tareas: 0 outliers
+   autonomia_sin_presion: 0 outliers
+   concentracion_estudio: 0 outliers
+   evitar_tareas_dificiles: 2 outliers
+   revisar_celular_estudio: 20 outliers
+   interferencia_redes: 3 outliers
+   dejar_ultimo_momento: 0 outliers
 
-Resumen completo:
-       frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-count                            42.00  ...                            42.00
-mean                              3.07  ...                             3.31
-std                               1.11  ...                             1.12
-min                               1.00  ...                             1.00
-25%                               2.00  ...                             2.25
-50%                               3.00  ...                             3.00
-75%                               4.00  ...                             4.00
-max                               5.00  ...                             5.00
+Gráfico 1: boxplots guardado
 
-[8 rows x 8 columns]
+Gráfico 2: histogramas guardado
 
-======================================================================
-7. DETECCIÓN DE OUTLIERS (IQR)
-======================================================================
+Gráfico 3: scatter plots guardado
 
-frecuencia_planificacion_tareas:
-  Q1: 2.00, Q2: 3.00, Q3: 4.00
-  IQR: 2.00
-  Límites: [-1.00, 7.00]
-  Outliers: 0
+9. ENCODINGS:
+   Label Encoding: label_planificacion
+   Binary Encoding: binary_concentracion (alta≥4)
+   One Hot: 5 columnas
 
-frecuencia_dividir_tareas:
-  Q1: 2.00, Q2: 3.00, Q3: 4.00
-  IQR: 2.00
-  Límites: [-1.00, 7.00]
-  Outliers: 0
-
-frecuencia_autonomia_sin_presion:
-  Q1: 2.25, Q2: 4.00, Q3: 4.75
-  IQR: 2.50
-  Límites: [-1.50, 8.50]
-  Outliers: 0
-
-frecuencia_concentracion_estudio:
-  Q1: 2.25, Q2: 3.00, Q3: 4.00
-  IQR: 1.75
-  Límites: [-0.38, 6.62]
-  Outliers: 0
-
-frecuencia_evitar_tareas_dificiles:
-  Q1: 3.00, Q2: 3.00, Q3: 4.00
-  IQR: 1.00
-  Límites: [1.50, 5.50]
-  Outliers: 2
-
-frecuencia_revisar_celular_estudio:
-  Q1: 4.00, Q2: 4.00, Q3: 4.00
-  IQR: 0.00
-  Límites: [4.00, 4.00]
-  Outliers: 20
-
-frecuencia_interferencia_redes:
-  Q1: 3.25, Q2: 4.00, Q3: 4.00
-  IQR: 0.75
-  Límites: [2.12, 5.12]
-  Outliers: 3
-
-frecuencia_dejar_ultimo_momento:
-  Q1: 2.25, Q2: 3.00, Q3: 4.00
-  IQR: 1.75
-  Límites: [-0.38, 6.62]
-  Outliers: 0
-
-Total outliers detectados: 25
-
-Gráfico guardado: 01_boxplots_outliers.png
-
-======================================================================
-8. HISTOGRAMAS
-======================================================================
-Gráfico guardado: 02_histogramas.png
-
-======================================================================
-9. SCATTER PLOTS
-======================================================================
-Gráfico guardado: 03_scatter_plots.png
-
-======================================================================
-10. PROPORCIONES Y FRECUENCIAS
-======================================================================
-Proporciones por variable (valores 1-5):
-
-frecuencia_planificacion_tareas:
-  1: 4.76%
-  2: 28.57%
-  3: 35.71%
-  4: 16.67%
-  5: 14.29%
-
-frecuencia_dividir_tareas:
-  1: 16.67%
-  2: 30.95%
-  3: 23.81%
-  4: 26.19%
-  5: 2.38%
-
-frecuencia_autonomia_sin_presion:
-  1: 9.52%
-  2: 16.67%
-  3: 16.67%
-  4: 30.95%
-  5: 26.19%
-
-Gráfico guardado: 04_frecuencias_barras.png
-
-======================================================================
-11. ENCODINGS
-======================================================================
-CONVERSIÓN LIKERT (ya aplicada):
-  Escala textual → Numérica (1-5)
-
-LABEL ENCODING (ejemplo):
-  Variable: frecuencia_planificacion_tareas
-  Valores únicos: [np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5)]
-
-BINARY ENCODING (ejemplo):
-  Variable creada: concentracion_alta
-  Distribución: {0: 29, 1: 13}
-
-ONE HOT ENCODING (ejemplo):
-  Variable: frecuencia_dejar_ultimo_momento
-  Nuevas columnas: 5
-
-======================================================================
-12. CORRELACIÓN PEARSON
-======================================================================
-Matriz de correlación:
+10. CORRELACIÓN PEARSON:
                                     frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
 frecuencia_planificacion_tareas                                1.00  ...                            -0.59
 frecuencia_dividir_tareas                                      0.51  ...                            -0.44
@@ -298,114 +113,32 @@ frecuencia_dejar_ultimo_momento                               -0.59  ...        
 
 [8 rows x 8 columns]
 
-Correlaciones significativas (|r| > 0.5):
-  frecuencia_planificacion_tareas <-> frecuencia_dividir_tareas: 0.509
-  frecuencia_planificacion_tareas <-> frecuencia_dejar_ultimo_momento: -0.588
-  frecuencia_concentracion_estudio <-> frecuencia_interferencia_redes: -0.573
-  frecuencia_revisar_celular_estudio <-> frecuencia_interferencia_redes: 0.559
+Gráfico 4: correlación guardado
 
-Gráfico guardado: 05_correlacion_pearson.png
+11. DECISIÓN ELIMINAR VARIABLES:
+    No se eliminan variables (correlación < 0.85)
 
-======================================================================
-13. CORRELACIÓN SPEARMAN
-======================================================================
-Matriz de correlación:
-                                    frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-frecuencia_planificacion_tareas                                1.00  ...                            -0.60
-frecuencia_dividir_tareas                                      0.50  ...                            -0.44
-frecuencia_autonomia_sin_presion                               0.49  ...                            -0.46
-frecuencia_concentracion_estudio                               0.44  ...                            -0.44
-frecuencia_evitar_tareas_dificiles                            -0.27  ...                             0.42
-frecuencia_revisar_celular_estudio                            -0.22  ...                             0.40
-frecuencia_interferencia_redes                                -0.23  ...                             0.42
-frecuencia_dejar_ultimo_momento                               -0.60  ...                             1.00
-
-[8 rows x 8 columns]
-
-Gráfico guardado: 06_correlacion_spearman.png
-
-======================================================================
-14. DECISIÓN ELIMINAR VARIABLES
-======================================================================
-DECISIÓN: No se eliminan variables
-RAZÓN: No hay correlaciones superiores a 0.85
-
-======================================================================
-15. ESCALADO STANDARD
-======================================================================
-StandardScaler aplicado
-
-Estadísticas después del escalado:
-      frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-mean                          -0.0000  ...                           0.0000
-std                            1.0121  ...                           1.0121
+12. ESCALADO STANDARDSCALER:
+      frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+mean                          -0.0000                     0.0000  ...                         -0.0000                           0.0000
+std                            1.0121                     1.0121  ...                          1.0121                           1.0121
 
 [2 rows x 8 columns]
-
-Gráfico guardado: 07_comparacion_escalado.png
-
-======================================================================
-16. LOG TRANSFORM
-======================================================================
-Log transform aplicado a: frecuencia_evitar_tareas_dificiles
-NOTA: Para escala Likert no es necesario, pero se demuestra
-
-======================================================================
-17. AGRUPACIÓN Y AGREGACIÓN
-======================================================================
-Promedios agrupados por 'dejar_ultimo_momento':
-                                 frecuencia_planificacion_tareas  ...  frecuencia_revisar_celular_estudio
-frecuencia_dejar_ultimo_momento                                   ...                                    
-1                                                           3.00  ...                                1.00
-2                                                           4.40  ...                                3.70
-3                                                           2.93  ...                                3.93
-4                                                           2.44  ...                                4.00
-5                                                           2.38  ...                                4.50
-
-[5 rows x 3 columns]
-
-======================================================================
-18. GUARDAR DATASET PROCESADO
-======================================================================
-Dataset guardado: data_procesada.csv
-Dimensiones: 42 filas x 10 columnas
-
-Variables en dataset final:
-  - frecuencia_planificacion_tareas
-  - frecuencia_dividir_tareas
-  - frecuencia_autonomia_sin_presion
-  - frecuencia_concentracion_estudio
-  - frecuencia_evitar_tareas_dificiles
-  - frecuencia_revisar_celular_estudio
-  - frecuencia_interferencia_redes
-  - frecuencia_dejar_ultimo_momento
-  - planificacion_label
-  - concentracion_alta
 
 ======================================================================
 PIPELINE COMPLETADO
 ======================================================================
 
-ARCHIVOS GENERADOS:
-  1. CSV procesado: data_procesada.csv
-  2. Carpeta gráficos: graficos/
-     - 01_boxplots_outliers.png
-     - 02_histogramas.png
-     - 03_scatter_plots.png
-     - 04_frecuencias_barras.png
-     - 05_correlacion_pearson.png
-     - 06_correlacion_spearman.png
-     - 07_comparacion_escalado.png
+Archivos generados:
+  - data_procesada.csv (42 filas x 10 columnas)
+  - graficos\01_boxplots.png
+  - graficos\02_histogramas.png
+  - graficos\03_scatter_plots.png
+  - graficos\04_correlacion.png
 
-DATASET ORIGINAL: 42 respuestas
-DATASET PROCESADO: 42 respuestas
-VARIABLES ANALIZADAS: 8
+CONCLUSIONES:
+1. Promedio procrastinación: 3.31/5
+2. Variable más alta: revisar_celular_estudio
+3. Variable más baja: binary_concentracion
+4. Correlación más fuerte: 0.59
 
-ESCALA LIKERT CONVERTIDA:
-  Nunca → 1
-  Rara vez → 2
-  A veces → 3
-  Frecuentemente → 4
-  Siempre → 5
-
-======================================================================
