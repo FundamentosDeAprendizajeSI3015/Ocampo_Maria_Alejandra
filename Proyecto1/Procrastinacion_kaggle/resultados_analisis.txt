@@ -1,0 +1,530 @@
+======================================================================
+PIPELINE DE ANÁLISIS - PROCRASTINACIÓN ESTUDIANTIL
+======================================================================
+
+======================================================================
+1. CARGA DATASET
+======================================================================
+Filas: 451
+Columnas: 17
+
+======================================================================
+2. INSPECCIÓN RÁPIDA
+======================================================================
+Columnas disponibles:
+  1. Timestamp
+  2. study_year
+  3. socio-economic_background
+  4. assignment_delay_frequency
+  5. procrastination_reasons
+  6. assignment_submission_timing
+  7. last_minute_exam_preparation
+  8. effect_of_procrastination_on_grades
+  9. procrastination_and_grade_outcome
+  10. stress_due_to_procrastination
+  11. study_hours_per_week
+  12. cgpa
+  13. use_of_time_management
+  14. procrastination_management_training
+  15. procrastination_recovery_strategies
+  16. hours_spent_on_mobile_non_academic
+  17. study_session_distractions
+
+Info del dataset:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 451 entries, 0 to 450
+Data columns (total 17 columns):
+ #   Column                               Non-Null Count  Dtype 
+---  ------                               --------------  ----- 
+ 0   Timestamp                            451 non-null    object
+ 1   study_year                           451 non-null    object
+ 2   socio-economic_background            445 non-null    object
+ 3   assignment_delay_frequency           451 non-null    object
+ 4   procrastination_reasons              451 non-null    object
+ 5   assignment_submission_timing         451 non-null    object
+ 6   last_minute_exam_preparation         451 non-null    object
+ 7   effect_of_procrastination_on_grades  451 non-null    object
+ 8   procrastination_and_grade_outcome    451 non-null    object
+ 9   stress_due_to_procrastination        451 non-null    object
+ 10  study_hours_per_week                 451 non-null    object
+ 11  cgpa                                 441 non-null    object
+ 12  use_of_time_management               446 non-null    object
+ 13  procrastination_management_training  448 non-null    object
+ 14  procrastination_recovery_strategies  451 non-null    object
+ 15  hours_spent_on_mobile_non_academic   451 non-null    object
+ 16  study_session_distractions           451 non-null    object
+dtypes: object(17)
+memory usage: 60.0+ KB
+None
+
+Primeras 3 filas:
+            Timestamp  ... study_session_distractions
+0   11/4/2024 9:39:00  ...                  Sometimes
+1  11/4/2024 11:11:00  ...                  Sometimes
+2  11/4/2024 11:44:00  ...               Occasionally
+
+[3 rows x 17 columns]
+
+======================================================================
+3. SELECCIÓN DE VARIABLES RELEVANTES
+======================================================================
+Variables seleccionadas: 8
+  - study_hours_per_week
+  - cgpa
+  - assignment_delay_frequency
+  - stress_due_to_procrastination
+  - use_of_time_management
+  - procrastination_reasons
+  - hours_spent_on_mobile_non_academic
+  - procrastination_and_grade_outcome
+
+Nueva dimensión: 451 filas x 8 columnas
+
+======================================================================
+4. NANS - DETECCIÓN
+======================================================================
+NaNs por columna:
+study_hours_per_week                   0
+cgpa                                  10
+assignment_delay_frequency             0
+stress_due_to_procrastination          0
+use_of_time_management                 5
+procrastination_reasons                0
+hours_spent_on_mobile_non_academic     0
+procrastination_and_grade_outcome      0
+dtype: int64
+
+Total NaNs: 15
+Porcentaje de NaNs: 0.42%
+
+======================================================================
+5. NANS - TRATAMIENTO
+======================================================================
+Estrategia: Eliminación de filas con NaNs
+Filas antes: 451
+Filas después: 436
+Filas eliminadas: 15
+
+======================================================================
+6. NANS - VERIFICACIÓN
+======================================================================
+NaNs después del tratamiento:
+study_hours_per_week                  0
+cgpa                                  0
+assignment_delay_frequency            0
+stress_due_to_procrastination         0
+use_of_time_management                0
+procrastination_reasons               0
+hours_spent_on_mobile_non_academic    0
+procrastination_and_grade_outcome     0
+dtype: int64
+
+Total NaNs restantes: 0
+Estado: Dataset limpio de NaNs
+
+======================================================================
+7. MANIPULACIÓN FILAS/COLUMNAS
+======================================================================
+Dimensión actual: (436, 8)
+Índice: 0 a 450
+Índice reseteado: 0 a 435
+
+======================================================================
+8. LIMPIEZA TEXTO
+======================================================================
+Columnas de texto: 8
+Limpieza de espacios completada
+
+======================================================================
+9. DUPLICADOS
+======================================================================
+Filas duplicadas: 6
+Duplicados eliminados
+Filas restantes: 436
+
+======================================================================
+10. VALIDACIÓN LÓGICA/CONSISTENCIA
+======================================================================
+Valores únicos por variable:
+  study_hours_per_week: 4 valores únicos
+    Ejemplos: ['0-5 hours', '6-10 hours', '11-15 hours']
+  cgpa: 5 valores únicos
+    Ejemplos: ['2.50 - 2.99', '3.00 - 3.49', 'Below 2.50']
+  assignment_delay_frequency: 5 valores únicos
+    Ejemplos: ['Always', 'Often', 'Occasionally']
+  stress_due_to_procrastination: 4 valores únicos
+    Ejemplos: ['Significantly', 'Not at all', 'Moderately']
+  use_of_time_management: 5 valores únicos
+    Ejemplos: ['Always', 'Never', 'Sometimes']
+  procrastination_reasons: 116 valores únicos
+    Ejemplos: ['Lack of interest, Health issues', 'Procrastination due to lack of resources, Health issues', 'Distractions (e.g., social media), Health issues']
+  hours_spent_on_mobile_non_academic: 3 valores únicos
+    Ejemplos: ['1-2 hours', 'More than 4 hours', '3-4 hours']
+  procrastination_and_grade_outcome: 2 valores únicos
+    Ejemplos: ['Yes', 'No']
+
+======================================================================
+11. TIPOS + CONVERSIÓN
+======================================================================
+Tipos de datos antes de conversión:
+study_hours_per_week                  object
+cgpa                                  object
+assignment_delay_frequency            object
+stress_due_to_procrastination         object
+use_of_time_management                object
+procrastination_reasons               object
+hours_spent_on_mobile_non_academic    object
+procrastination_and_grade_outcome     object
+dtype: object
+
+Transformaciones aplicadas:
+  - study_hours_per_week: rangos a valores numéricos
+  - cgpa: rangos a valores numéricos
+  - assignment_delay_frequency: ordinal a numérico (0-4)
+  - stress_due_to_procrastination: ordinal a numérico (0-3)
+  - use_of_time_management: ordinal a numérico (0-4)
+  - hours_spent_on_mobile_non_academic: rangos a valores numéricos
+  - procrastination_and_grade_outcome: binario (0/1)
+
+Tipos después de conversión:
+study_hours_per_week                  float64
+cgpa                                  float64
+assignment_delay_frequency              int64
+stress_due_to_procrastination           int64
+use_of_time_management                  int64
+procrastination_reasons                object
+hours_spent_on_mobile_non_academic    float64
+procrastination_and_grade_outcome       int64
+dtype: object
+
+======================================================================
+12. FILTRADO
+======================================================================
+NaNs encontrados después del mapeo:
+study_hours_per_week    29
+dtype: int64
+Filas eliminadas: 29
+Dimensión final: (407, 8)
+
+======================================================================
+13. AGRUPACIÓN/AGREGACIÓN
+======================================================================
+Estadísticas por frecuencia de retraso en tareas:
+                            cgpa  ... procrastination_and_grade_outcome
+                            mean  ...                              mean
+assignment_delay_frequency        ...                                  
+0                           3.79  ...                               0.0
+1                           3.49  ...                               0.0
+2                           3.31  ...                               0.0
+3                           2.96  ...                               1.0
+4                           2.41  ...                               1.0
+
+[5 rows x 6 columns]
+
+======================================================================
+14. ONE HOT ENCODING
+======================================================================
+Variable codificada: procrastination_reasons
+Columnas antes: 8
+Columnas después: 121
+Nuevas columnas creadas: 113
+
+Nuevas variables binarias:
+  1. reason_Distractions (e.g., social media)
+  2. reason_Distractions (e.g., social media), Health issues
+  3. reason_Distractions (e.g., social media), Health issues, Unclear instructions from professors
+  4. reason_Distractions (e.g., social media), Overconfidence
+  5. reason_Distractions (e.g., social media), Personal family problems
+  ... y 109 más
+
+======================================================================
+15. EDA - TENDENCIA CENTRAL
+======================================================================
+Medidas de tendencia central:
+        study_hours_per_week  ...  procrastination_and_grade_outcome
+mean                    4.93  ...                               0.59
+median                  2.50  ...                               1.00
+
+[2 rows x 7 columns]
+
+======================================================================
+16. EDA - DISPERSIÓN
+======================================================================
+Medidas de dispersión:
+     study_hours_per_week  ...  procrastination_and_grade_outcome
+std                  3.87  ...                               0.49
+var                 14.98  ...                               0.24
+min                  2.50  ...                               0.00
+max                 13.00  ...                               1.00
+
+[4 rows x 7 columns]
+
+Rangos:
+  study_hours_per_week: 10.50
+  cgpa: 1.62
+  assignment_delay_frequency: 4.00
+  stress_due_to_procrastination: 3.00
+  use_of_time_management: 4.00
+  hours_spent_on_mobile_non_academic: 3.50
+  procrastination_and_grade_outcome: 1.00
+
+======================================================================
+17. EDA - POSICIÓN + OUTLIERS (IQR)
+======================================================================
+
+study_hours_per_week:
+  Q1 (25%): 2.50
+  Q2 (50%): 2.50
+  Q3 (75%): 8.00
+  IQR: 5.50
+  Límites: [-5.75, 16.25]
+  Outliers: 0
+
+cgpa:
+  Q1 (25%): 2.75
+  Q2 (50%): 3.25
+  Q3 (75%): 3.25
+  IQR: 0.50
+  Límites: [2.00, 4.00]
+  Outliers: 0
+
+assignment_delay_frequency:
+  Q1 (25%): 2.00
+  Q2 (50%): 3.00
+  Q3 (75%): 3.00
+  IQR: 1.00
+  Límites: [0.50, 4.50]
+  Outliers: 19
+
+stress_due_to_procrastination:
+  Q1 (25%): 0.00
+  Q2 (50%): 2.00
+  Q3 (75%): 3.00
+  IQR: 3.00
+  Límites: [-4.50, 7.50]
+  Outliers: 0
+
+use_of_time_management:
+  Q1 (25%): 1.00
+  Q2 (50%): 2.00
+  Q3 (75%): 3.00
+  IQR: 2.00
+  Límites: [-2.00, 6.00]
+  Outliers: 0
+
+hours_spent_on_mobile_non_academic:
+  Q1 (25%): 1.50
+  Q2 (50%): 3.50
+  Q3 (75%): 5.00
+  IQR: 3.50
+  Límites: [-3.75, 10.25]
+  Outliers: 0
+
+procrastination_and_grade_outcome:
+  Q1 (25%): 0.00
+  Q2 (50%): 1.00
+  Q3 (75%): 1.00
+  IQR: 1.00
+  Límites: [-1.50, 2.50]
+  Outliers: 0
+
+Total de outliers detectados: 19
+
+Gráfico guardado: 01_boxplots_outliers.png
+
+======================================================================
+18. HISTOGRAMAS
+======================================================================
+Gráfico guardado: 02_histogramas.png
+
+======================================================================
+19. SCATTER PLOTS
+======================================================================
+Gráfico guardado: 03_scatter_plots.png
+
+======================================================================
+20. PROBABILIDADES/PROPORCIONES CATEGÓRICAS
+======================================================================
+Proporciones de procrastination_and_grade_outcome:
+procrastination_and_grade_outcome
+0    0.412776
+1    0.587224
+Name: proportion, dtype: float64
+
+Proporciones de assignment_delay_frequency:
+assignment_delay_frequency
+0    0.046683
+1    0.167076
+2    0.199017
+3    0.439803
+4    0.147420
+Name: proportion, dtype: float64
+
+Proporciones de stress_due_to_procrastination:
+stress_due_to_procrastination
+0    0.260442
+1    0.211302
+2    0.255528
+3    0.272727
+Name: proportion, dtype: float64
+
+Gráfico guardado: 04_proporciones_categoricas.png
+
+======================================================================
+21. ENCODINGS: ONEHOT + LABEL + BINARY
+======================================================================
+ONE HOT ENCODING:
+  Ya aplicado a: procrastination_reasons
+  Columnas generadas: 114
+
+LABEL ENCODING:
+  Variable: assignment_delay_frequency
+  Clases: [np.int64(0), np.int64(1), np.int64(2), np.int64(3), np.int64(4)]
+  Codificación: {np.int64(0): np.int64(0), np.int64(1): np.int64(1), np.int64(2): np.int64(2), np.int64(3): np.int64(3), np.int64(4): np.int64(4)}
+
+BINARY ENCODING:
+  Variable: procrastination_and_grade_outcome
+  Valores: 0 (No) y 1 (Yes)
+  Distribución: {1: 239, 0: 168}
+
+======================================================================
+22. CORRELACIÓN PEARSON
+======================================================================
+Matriz de correlación de Pearson:
+                                    study_hours_per_week  ...  procrastination_and_grade_outcome
+study_hours_per_week                                1.00  ...                              -0.75
+cgpa                                                0.64  ...                              -0.71
+assignment_delay_frequency                         -0.85  ...                               0.86
+stress_due_to_procrastination                      -0.05  ...                               0.07
+use_of_time_management                             -0.01  ...                              -0.03
+hours_spent_on_mobile_non_academic                 -0.10  ...                               0.10
+procrastination_and_grade_outcome                  -0.75  ...                               1.00
+
+[7 rows x 7 columns]
+
+Correlaciones significativas (|r| > 0.5):
+  study_hours_per_week <-> cgpa: 0.640
+  study_hours_per_week <-> assignment_delay_frequency: -0.849
+  study_hours_per_week <-> procrastination_and_grade_outcome: -0.749
+  cgpa <-> assignment_delay_frequency: -0.835
+  cgpa <-> procrastination_and_grade_outcome: -0.711
+  assignment_delay_frequency <-> procrastination_and_grade_outcome: 0.861
+
+Gráfico guardado: 05_correlacion_pearson.png
+
+======================================================================
+23. CORRELACIÓN SPEARMAN
+======================================================================
+Matriz de correlación de Spearman:
+                                    study_hours_per_week  ...  procrastination_and_grade_outcome
+study_hours_per_week                                1.00  ...                              -0.79
+cgpa                                                0.67  ...                              -0.74
+assignment_delay_frequency                         -0.82  ...                               0.90
+stress_due_to_procrastination                      -0.05  ...                               0.07
+use_of_time_management                             -0.01  ...                              -0.03
+hours_spent_on_mobile_non_academic                 -0.10  ...                               0.10
+procrastination_and_grade_outcome                  -0.79  ...                               1.00
+
+[7 rows x 7 columns]
+
+Gráfico guardado: 06_correlacion_spearman.png
+
+======================================================================
+24. DECISIÓN DE ELIMINAR VARIABLES
+======================================================================
+  Alta correlación: assignment_delay_frequency <-> procrastination_and_grade_outcome: 0.861
+
+======================================================================
+25. ESCALADO MINMAX
+======================================================================
+MinMaxScaler aplicado a variables numéricas
+
+Estadísticas después del escalado:
+     study_hours_per_week  ...  procrastination_and_grade_outcome
+min                   0.0  ...                                0.0
+max                   1.0  ...                                1.0
+
+[2 rows x 7 columns]
+
+======================================================================
+26. ESCALADO STANDARD
+======================================================================
+StandardScaler aplicado a variables numéricas
+
+Estadísticas después del escalado:
+      study_hours_per_week  ...  procrastination_and_grade_outcome
+mean                0.0000  ...                            -0.0000
+std                 1.0012  ...                             1.0012
+
+[2 rows x 7 columns]
+
+Gráfico guardado: 07_comparacion_escalado.png
+
+======================================================================
+27. LOG TRANSFORM
+======================================================================
+Log transform aplicado a: hours_spent_on_mobile_non_academic
+
+Estadísticas ANTES del log:
+count    407.00
+mean       3.42
+std        1.46
+min        1.50
+25%        1.50
+50%        3.50
+75%        5.00
+max        5.00
+Name: hours_spent_on_mobile_non_academic, dtype: float64
+
+Estadísticas DESPUÉS del log:
+count    407.00
+mean       1.42
+std        0.37
+min        0.92
+25%        0.92
+50%        1.50
+75%        1.79
+max        1.79
+Name: log_mobile_hours, dtype: float64
+
+Gráfico guardado: 08_log_transform.png
+
+======================================================================
+28. GUARDAR DATASET PROCESADO
+======================================================================
+Dataset guardado: c:\Users\maria\OneDrive\Escritorio\AAutomatico\Ocampo_Maria_Alejandra\Proyecto1\Procrastinacion_kaggle\data_procesada.csv
+Dimensiones: 407 filas x 10 columnas
+
+Variables incluidas:
+  - study_hours_per_week
+  - cgpa
+  - assignment_delay_frequency
+  - stress_due_to_procrastination
+  - use_of_time_management
+  - procrastination_reasons
+  - hours_spent_on_mobile_non_academic
+  - procrastination_and_grade_outcome
+  - assignment_delay_label
+  - log_mobile_hours
+
+======================================================================
+PIPELINE COMPLETADO
+======================================================================
+
+ARCHIVOS GENERADOS:
+  1. CSV procesado: c:\Users\maria\OneDrive\Escritorio\AAutomatico\Ocampo_Maria_Alejandra\Proyecto1\Procrastinacion_kaggle\data_procesada.csv
+  2. Carpeta gráficos: c:\Users\maria\OneDrive\Escritorio\AAutomatico\Ocampo_Maria_Alejandra\Proyecto1\Procrastinacion_kaggle\graficos/
+     - 01_boxplots_outliers.png
+     - 02_histogramas.png
+     - 03_scatter_plots.png
+     - 04_proporciones_categoricas.png
+     - 05_correlacion_pearson.png
+     - 06_correlacion_spearman.png
+     - 07_comparacion_escalado.png
+     - 08_log_transform.png
+
+DATASET ORIGINAL: 451 filas
+DATASET PROCESADO: 407 filas
+FILAS ELIMINADAS: 44
+
+======================================================================
