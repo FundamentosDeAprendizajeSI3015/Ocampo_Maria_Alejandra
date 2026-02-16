@@ -1,8 +1,11 @@
 """
 Pipeline Análisis Encuesta Procrastinación
 Maria Alejandra Ocampo Giraldo
-Versión robusta: busca el CSV en rutas comunes y añade inspección rápida.
+
 """
+# Importación de librerías para manipulación de datos, visualización de gráficos,
+# preprocesamiento para Machine Learning y manejo de rutas del sistema.
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,11 +14,12 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 import os
 import sys
 
+# Configuración visual de gráficos y definición de rutas para outputs del pipeline.
 # Config
 sns.set_style('whitegrid')
 plt.rcParams['figure.figsize'] = (10, 6)
 
-# Rutas basadas en el archivo
+# Rutas 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 CARPETA_GRAFICOS = os.path.join(SCRIPT_DIR, "graficos")
 ARCHIVO_OUTPUT_CSV = os.path.join(SCRIPT_DIR, "data_procesada.csv")
@@ -23,10 +27,11 @@ ARCHIVO_OUTPUT_TXT = os.path.join(SCRIPT_DIR, "resultados_analisis.txt")
 
 os.makedirs(CARPETA_GRAFICOS, exist_ok=True)
 
-# Capturar outputs
+# Capturar outputs de consola y almacenarla para generar un archivo de resultados.
 class OutputCapture:
     def __init__(self):
         self.outputs = []
+        #e guarda el texto en la lista outputs.
     def write(self, text):
         self.outputs.append(text)
         sys.__stdout__.write(text)
@@ -43,6 +48,7 @@ print()
 
 # Localizar el archivo CSV en rutas probables
 csv_name = "procastinacion_encuesta.csv"
+## Definición del nombre del dataset y posibles rutas para hacerlo portable y evitar errores de ubicación.
 candidate_paths = [
     os.path.join(SCRIPT_DIR, csv_name),
     os.path.join(os.path.dirname(SCRIPT_DIR), "Procrastinacion_encuesta", csv_name),
@@ -50,6 +56,7 @@ candidate_paths = [
     os.path.join(os.getcwd(), csv_name)
 ]
 
+# Bsqueda de la ruta válida del CSV y manejo de error si no se encuentra.
 csv_path = None
 for p in candidate_paths:
     if os.path.exists(p):
@@ -60,11 +67,12 @@ if csv_path is None:
     sys.stdout = sys.__stdout__
     raise FileNotFoundError(f"No se encontró {csv_name}. Busqué en: {candidate_paths}")
 
-# Carga
-df_original = pd.read_csv(csv_path)
+# Carga conjunto de datos y verificar tamaño.
+df_original = pd.read_csv(csv_path) #Carga el archivo CSV en un DataFrame de pandas.
 print(f"1. CARGA: {df_original.shape[0]} filas x {df_original.shape[1]} columnas\n")
 
 # Inspección rápida
+#  columnas, tipos de datos y primeras filas.
 print("="*70)
 print("2. INSPECCIÓN RÁPIDA")
 print("="*70)
@@ -81,6 +89,8 @@ print(df_original.head(3))
 print()
 
 # Selección variables
+# Selección explícita de variables relevantes para el análisis de procrastinación,
+# basadas en la pregunta de investigación y su pertinencia estadística.
 variables = [
     'frecuencia_planificacion_tareas',
     'frecuencia_dividir_tareas',
@@ -100,7 +110,8 @@ print("4. VERIFICACIÓN:")
 print(f"   NaNs: {df.isnull().sum().sum()}")
 print(f"   Duplicados: {df.duplicated().sum()}\n")
 
-# Conversión Likert a numérico (1-5)
+
+# Transformación de variables categóricas tipo Likert a escala numérica ordinal (1–5).
 mapeo = {'Nunca': 1, 'Rara vez': 2, 'A veces': 3, 'Frecuentemente': 4, 'Siempre': 5}
 
 df_num = df.copy()
@@ -110,16 +121,34 @@ for col in df.columns:
 print("5. CONVERSIÓN LIKERT → NUMÉRICO (1-5)")
 print("   Nunca→1, Rara vez→2, A veces→3, Frecuentemente→4, Siempre→5\n")
 
-# Estadísticas descriptivas
+# Estadísticas descriptivas generales
+# 6. MEDIDAS DE TENDENCIA CENTRAL
 print("6. TENDENCIA CENTRAL:")
 print(df_num.agg(['mean', 'median']).round(2))
 print()
 
-print("7. DISPERSIÓN:")
+# MEDIDAS DE DISPERSIÓN
+print(" DISPERSIÓN:")
 print(df_num.agg(['std', 'var']).round(2))
 print()
 
+# MEDIDAS DE POSICIÓN
+print("POSICIÓN (percentiles):")
+print(df_num.quantile([0.25, 0.5, 0.75]).round(2))
+print()
+
+# ESTADÍSTICAS DESCRIPTIVAS GENERALES
+print(" ESTADÍSTICAS DESCRIPTIVAS:")
+print(df_num.describe().round(2))
+print()
+
+
+
 # Outliers IQR
+# Detección de valores atípicos mediante el método IQR (Q1–Q3 ± 1.5*IQR).
+# No se eliminan outliers debido a que los datos provienen de una escala Likert (1–5),
+# donde los valores extremos representan respuestas válidas y no errores de medición.
+
 print("8. OUTLIERS (IQR):")
 for col in df_num.columns:
     Q1, Q3 = df_num[col].quantile([0.25, 0.75])
@@ -129,6 +158,7 @@ for col in df_num.columns:
 print()
 
 # Gráfico 1: Boxplots
+# Generación de boxplots para visualizar distribución, dispersión y posibles outliers de cada variable.
 fig, axes = plt.subplots(2, 4, figsize=(16, 8))
 axes = axes.ravel()
 for idx, col in enumerate(df_num.columns):
@@ -141,7 +171,10 @@ plt.savefig(os.path.join(CARPETA_GRAFICOS, '01_boxplots.png'), dpi=300, bbox_inc
 plt.close()
 print("Gráfico 1: boxplots guardado\n")
 
-# Gráfico 2: Histogramas
+# Gráfico 2
+# Generación de histogramas para visualizar la distribución de frecuencias
+# de cada variable en la escala Likert (1–5).
+
 fig, axes = plt.subplots(2, 4, figsize=(16, 8))
 axes = axes.ravel()
 for idx, col in enumerate(df_num.columns):
@@ -155,6 +188,7 @@ plt.close()
 print("Gráfico 2: histogramas guardado\n")
 
 # Gráfico 3: Scatter plots
+# Visualización de posibles relaciones y patrones de correlación entre variables seleccionadas.
 fig, axes = plt.subplots(2, 3, figsize=(15, 10))
 axes = axes.ravel()
 pares = [
@@ -178,6 +212,8 @@ plt.close()
 print("Gráfico 3: scatter plots guardado\n")
 
 # Encodings
+# Aplicación de diferentes técnicas de codificación (label, binaria y one-hot)
+# para preparar variables para modelado en Machine Learning.
 print("9. ENCODINGS:")
 le = LabelEncoder()
 df_num['label_planificacion'] = le.fit_transform(df_num['frecuencia_planificacion_tareas'].astype(str))
@@ -188,6 +224,9 @@ print(f"   Binary Encoding: binary_concentracion (alta≥4)")
 print(f"   One Hot: {len([c for c in df_onehot.columns if c.startswith('ultimo')])} columnas\n")
 
 # Correlación Pearson
+# Valores positivos (rojo) significan relación directa: cuando una aumenta, la otra también.
+# Valores negativos (azul) indican relación inversa: cuando una aumenta, la otra disminuye.
+# Valores cercanos a 0 representan poca o ninguna relación lineal.
 corr = df_num[variables].corr(method='pearson')
 print("10. CORRELACIÓN PEARSON:")
 print(corr.round(2))
@@ -202,6 +241,8 @@ plt.close()
 print("Gráfico 4: correlación guardado\n")
 
 # Decisión eliminar variables
+# Evaluación de multicolinealidad: se identifican pares de variables con
+# correlación alta (>0.85) para decidir si es necesario eliminar alguna.
 print("11. DECISIÓN ELIMINAR VARIABLES:")
 alta_corr = False
 for i in range(len(corr.columns)):
@@ -213,6 +254,8 @@ if not alta_corr:
     print("    No se eliminan variables (correlación < 0.85)\n")
 
 # Escalado
+# Estandarización de variables usando StandardScaler para centrar los datos
+# en media 0 y desviación estándar 1, preparándolos para modelado.
 scaler = StandardScaler()
 df_escalado = pd.DataFrame(
     scaler.fit_transform(df_num[variables].fillna(df_num[variables].mean())),
@@ -223,6 +266,8 @@ print(df_escalado.describe().loc[['mean', 'std']].round(4))
 print()
 
 # Guardar CSV procesado
+# Creación del dataset final listo para modelado, incluyendo variables escaladas
+# y variables adicionales generadas, y guardado en un nuevo archivo CSV.
 df_final = df_escalado.copy()
 df_final['label_planificacion'] = df_num['label_planificacion'].values
 df_final['binary_concentracion'] = df_num['binary_concentracion'].values
