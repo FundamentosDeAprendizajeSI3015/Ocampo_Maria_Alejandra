@@ -1,4 +1,4 @@
-````markdown
+
 # Pipeline Análisis Encuesta de Procrastinación
 
 **Autor:** Maria Alejandra Ocampo Giraldo  
@@ -80,7 +80,7 @@ Preparar y analizar un dataset de encuesta (escala Likert) para:
 1. Instalar dependencias:
    ```bash
    pip install pandas numpy matplotlib seaborn scikit-learn
-````
+`
 
 2. Ejecutar el script:
 
@@ -88,5 +88,4 @@ Preparar y analizar un dataset de encuesta (escala Likert) para:
    python pipeline_encuesta.py
    ```
 
----
 
