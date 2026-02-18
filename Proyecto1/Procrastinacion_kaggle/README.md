@@ -14,7 +14,7 @@ El objetivo del pipeline es dejar un dataset **limpio, transformado y listo** pa
 
 ---
 
-## 🎯 ¿Qué hace este código?
+##  ¿Qué hace este código?
 
 El script realiza un flujo completo de procesamiento:
 
