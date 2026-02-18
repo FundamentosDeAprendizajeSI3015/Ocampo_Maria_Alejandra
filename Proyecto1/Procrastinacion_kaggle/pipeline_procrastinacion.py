@@ -13,6 +13,13 @@ import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, LabelEncoder
 import os
 import sys
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+import joblib
+try:
+    import umap.umap_ as umap
+except Exception:
+    umap = None
 
 # Config visual. Le dice a seaborn que todas las gráficas tengan fondo blanco con cuadrícula.
 sns.set_style('whitegrid')
@@ -827,6 +834,68 @@ df_final['log_mobile_hours'] = df['log_mobile_hours']
 df_final['assignment_delay_label'] = df['assignment_delay_label']
 
 df_final.to_csv(ARCHIVO_OUTPUT_CSV, index=False)
+
+# Reducción de dimensionalidad y visualizaciones (PCA, t-SNE, UMAP)
+# Se generan y guardan embeddings (.csv), modelos (.joblib) y gráficos en la carpeta de gráficos
+MODELS_DIR = os.path.join(SCRIPT_DIR, 'models')
+os.makedirs(MODELS_DIR, exist_ok=True)
+
+# Usamos las variables numéricas escaladas para calcular embeddings
+features_for_emb = df_standard[vars_numericas]
+
+# PCA (2 componentes)
+pca = PCA(n_components=2, random_state=42)
+pca_components = pca.fit_transform(features_for_emb)
+pca_df = pd.DataFrame(pca_components, columns=['PC1', 'PC2'])
+pca_df['assignment_delay_label'] = df_final['assignment_delay_label'].values
+pca_df.to_csv(os.path.join(CARPETA_GRAFICOS, 'pca_embeddings.csv'), index=False)
+joblib.dump(pca, os.path.join(MODELS_DIR, 'pca_model.joblib'))
+
+plt.figure(figsize=(8, 6))
+sns.scatterplot(data=pca_df, x='PC1', y='PC2', hue='assignment_delay_label', palette='viridis', alpha=0.8)
+plt.title('PCA (2 componentes)')
+plt.legend(title='assignment_delay_label')
+plt.tight_layout()
+plt.savefig(os.path.join(CARPETA_GRAFICOS, '09_pca.png'), dpi=300, bbox_inches='tight')
+plt.close()
+print("Gráfico guardado: 09_pca.png")
+
+# t-SNE
+tsne = TSNE(n_components=2, random_state=42, init='pca', learning_rate='auto')
+tsne_components = tsne.fit_transform(features_for_emb)
+tsne_df = pd.DataFrame(tsne_components, columns=['Dim1', 'Dim2'])
+tsne_df['assignment_delay_label'] = df_final['assignment_delay_label'].values
+tsne_df.to_csv(os.path.join(CARPETA_GRAFICOS, 'tsne_embeddings.csv'), index=False)
+joblib.dump(tsne, os.path.join(MODELS_DIR, 'tsne_model.joblib'))
+
+plt.figure(figsize=(8, 6))
+sns.scatterplot(data=tsne_df, x='Dim1', y='Dim2', hue='assignment_delay_label', palette='viridis', alpha=0.8)
+plt.title('t-SNE (2 dimensiones)')
+plt.legend(title='assignment_delay_label')
+plt.tight_layout()
+plt.savefig(os.path.join(CARPETA_GRAFICOS, '10_tsne.png'), dpi=300, bbox_inches='tight')
+plt.close()
+print("Gráfico guardado: 10_tsne.png")
+
+# UMAP (si está disponible)
+if umap is not None:
+    umap_model = umap.UMAP(n_components=2, random_state=42)
+    umap_components = umap_model.fit_transform(features_for_emb)
+    umap_df = pd.DataFrame(umap_components, columns=['UMAP1', 'UMAP2'])
+    umap_df['assignment_delay_label'] = df_final['assignment_delay_label'].values
+    umap_df.to_csv(os.path.join(CARPETA_GRAFICOS, 'umap_embeddings.csv'), index=False)
+    joblib.dump(umap_model, os.path.join(MODELS_DIR, 'umap_model.joblib'))
+
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(data=umap_df, x='UMAP1', y='UMAP2', hue='assignment_delay_label', palette='viridis', alpha=0.8)
+    plt.title('UMAP (2 dimensiones)')
+    plt.legend(title='assignment_delay_label')
+    plt.tight_layout()
+    plt.savefig(os.path.join(CARPETA_GRAFICOS, '11_umap.png'), dpi=300, bbox_inches='tight')
+    plt.close()
+    print("Gráfico guardado: 11_umap.png")
+else:
+    print("UMAP no está disponible (biblioteca no instalada). Para activar UMAP, instale 'umap-learn'.")
 
 print(f"Dataset guardado: {ARCHIVO_OUTPUT_CSV}")
 print(f"Dimensiones: {df_final.shape[0]} filas x {df_final.shape[1]} columnas")

@@ -49,10 +49,10 @@ memory usage: 4.7+ KB
 None
 
 Primeras 3 filas:
-   id  ... frecuencia_dejar_ultimo_momento
-0   1  ...                        Rara vez
-1   2  ...                         A veces
-2   3  ...                         A veces
+   id          hora_inicio  ... frecuencia_interferencia_redes frecuencia_dejar_ultimo_momento
+0   1  2026-02-13 13:16:32  ...                        A veces                        Rara vez
+1   2  2026-02-13 13:45:13  ...                 Frecuentemente                         A veces
+2   3  2026-02-13 13:48:55  ...                 Frecuentemente                         A veces
 
 [3 rows x 14 columns]
 
@@ -66,37 +66,37 @@ Primeras 3 filas:
    Nunca→1, Rara vez→2, A veces→3, Frecuentemente→4, Siempre→5
 
 6. TENDENCIA CENTRAL:
-        frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-mean                               3.07  ...                             3.31
-median                             3.00  ...                             3.00
+        frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+mean                               3.07                       2.67  ...                            3.83                             3.31
+median                             3.00                       3.00  ...                            4.00                             3.00
 
 [2 rows x 8 columns]
 
  DISPERSIÓN:
-     frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-std                             1.11  ...                             1.12
-var                             1.24  ...                             1.24
+     frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+std                             1.11                       1.12  ...                            0.88                             1.12
+var                             1.24                       1.25  ...                            0.78                             1.24
 
 [2 rows x 8 columns]
 
 POSICIÓN (percentiles):
-      frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-0.25                              2.0  ...                             2.25
-0.50                              3.0  ...                             3.00
-0.75                              4.0  ...                             4.00
+      frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+0.25                              2.0                        2.0  ...                            3.25                             2.25
+0.50                              3.0                        3.0  ...                            4.00                             3.00
+0.75                              4.0                        4.0  ...                            4.00                             4.00
 
 [3 rows x 8 columns]
 
  ESTADÍSTICAS DESCRIPTIVAS:
-       frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-count                            42.00  ...                            42.00
-mean                              3.07  ...                             3.31
-std                               1.11  ...                             1.12
-min                               1.00  ...                             1.00
-25%                               2.00  ...                             2.25
-50%                               3.00  ...                             3.00
-75%                               4.00  ...                             4.00
-max                               5.00  ...                             5.00
+       frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+count                            42.00                      42.00  ...                           42.00                            42.00
+mean                              3.07                       2.67  ...                            3.83                             3.31
+std                               1.11                       1.12  ...                            0.88                             1.12
+min                               1.00                       1.00  ...                            1.00                             1.00
+25%                               2.00                       2.00  ...                            3.25                             2.25
+50%                               3.00                       3.00  ...                            4.00                             3.00
+75%                               4.00                       4.00  ...                            4.00                             4.00
+max                               5.00                       5.00  ...                            5.00                             5.00
 
 [8 rows x 8 columns]
 
@@ -140,9 +140,9 @@ Gráfico 4: correlación guardado
     No se eliminan variables (correlación < 0.85)
 
 12. ESCALADO STANDARDSCALER:
-      frecuencia_planificacion_tareas  ...  frecuencia_dejar_ultimo_momento
-mean                          -0.0000  ...                           0.0000
-std                            1.0121  ...                           1.0121
+      frecuencia_planificacion_tareas  frecuencia_dividir_tareas  ...  frecuencia_interferencia_redes  frecuencia_dejar_ultimo_momento
+mean                          -0.0000                     0.0000  ...                         -0.0000                           0.0000
+std                            1.0121                     1.0121  ...                          1.0121                           1.0121
 
 [2 rows x 8 columns]
 

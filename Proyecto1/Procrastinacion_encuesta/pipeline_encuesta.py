@@ -265,6 +265,9 @@ print("12. ESCALADO STANDARDSCALER:")
 print(df_escalado.describe().loc[['mean', 'std']].round(4))
 print()
 
+
+
+
 # Guardar CSV procesado
 # Creación del dataset final listo para modelado, incluyendo variables escaladas
 # y variables adicionales generadas, y guardado en un nuevo archivo CSV.

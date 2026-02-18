@@ -58,10 +58,10 @@ memory usage: 60.0+ KB
 None
 
 Primeras 3 filas:
-            Timestamp  ... study_session_distractions
-0   11/4/2024 9:39:00  ...                  Sometimes
-1  11/4/2024 11:11:00  ...                  Sometimes
-2  11/4/2024 11:44:00  ...               Occasionally
+            Timestamp   study_year  ... hours_spent_on_mobile_non_academic study_session_distractions
+0   11/4/2024 9:39:00  Fourth Year  ...                          1-2 hours                  Sometimes
+1  11/4/2024 11:11:00   Third Year  ...                  More than 4 hours                  Sometimes
+2  11/4/2024 11:44:00  Second Year  ...                          3-4 hours               Occasionally
 
 [3 rows x 17 columns]
 
@@ -139,7 +139,6 @@ Limpieza de espacios completada
 9. DUPLICADOS
 ======================================================================
 Filas duplicadas: 6
-Duplicados eliminados
 Filas restantes: 436
 
 ======================================================================
@@ -210,16 +209,14 @@ Dimensión final: (407, 8)
 13. AGRUPACIÓN/AGREGACIÓN
 ======================================================================
 Estadísticas por frecuencia de retraso en tareas:
-                            cgpa  ... procrastination_and_grade_outcome
-                            mean  ...                              mean
-assignment_delay_frequency        ...                                  
-0                           3.79  ...                               0.0
-1                           3.49  ...                               0.0
-2                           3.31  ...                               0.0
-3                           2.96  ...                               1.0
-4                           2.41  ...                               1.0
-
-[5 rows x 6 columns]
+                            cgpa             study_hours_per_week stress_due_to_procrastination procrastination_and_grade_outcome
+                            mean   std count                 mean                          mean                              mean
+assignment_delay_frequency                                                                                                       
+0                           3.79  0.12    19                13.00                          1.00                               0.0
+1                           3.49  0.23    68                10.87                          1.47                               0.0
+2                           3.31  0.14    81                 5.22                          1.53                               0.0
+3                           2.96  0.25   179                 2.50                          1.51                               1.0
+4                           2.41  0.23    60                 2.50                          1.88                               1.0
 
 ======================================================================
 14. ONE HOT ENCODING
@@ -241,9 +238,9 @@ Nuevas variables binarias:
 15. EDA - TENDENCIA CENTRAL
 ======================================================================
 Medidas de tendencia central:
-        study_hours_per_week  ...  procrastination_and_grade_outcome
-mean                    4.93  ...                               0.59
-median                  2.50  ...                               1.00
+        study_hours_per_week  cgpa  ...  hours_spent_on_mobile_non_academic  procrastination_and_grade_outcome
+mean                    4.93  3.07  ...                                3.42                               0.59
+median                  2.50  3.25  ...                                3.50                               1.00
 
 [2 rows x 7 columns]
 
@@ -251,11 +248,11 @@ median                  2.50  ...                               1.00
 16. EDA - DISPERSIÓN
 ======================================================================
 Medidas de dispersión:
-     study_hours_per_week  ...  procrastination_and_grade_outcome
-std                  3.87  ...                               0.49
-var                 14.98  ...                               0.24
-min                  2.50  ...                               0.00
-max                 13.00  ...                               1.00
+     study_hours_per_week  cgpa  ...  hours_spent_on_mobile_non_academic  procrastination_and_grade_outcome
+std                  3.87  0.43  ...                                1.46                               0.49
+var                 14.98  0.18  ...                                2.14                               0.24
+min                  2.50  2.25  ...                                1.50                               0.00
+max                 13.00  3.87  ...                                5.00                               1.00
 
 [4 rows x 7 columns]
 
@@ -440,9 +437,9 @@ Gráfico guardado: 06_correlacion_spearman.png
 MinMaxScaler aplicado a variables numéricas
 
 Estadísticas después del escalado:
-     study_hours_per_week  ...  procrastination_and_grade_outcome
-min                   0.0  ...                                0.0
-max                   1.0  ...                                1.0
+     study_hours_per_week  cgpa  ...  hours_spent_on_mobile_non_academic  procrastination_and_grade_outcome
+min                   0.0   0.0  ...                                 0.0                                0.0
+max                   1.0   1.0  ...                                 1.0                                1.0
 
 [2 rows x 7 columns]
 
@@ -452,9 +449,9 @@ max                   1.0  ...                                1.0
 StandardScaler aplicado a variables numéricas
 
 Estadísticas después del escalado:
-      study_hours_per_week  ...  procrastination_and_grade_outcome
-mean                0.0000  ...                            -0.0000
-std                 1.0012  ...                             1.0012
+      study_hours_per_week    cgpa  ...  hours_spent_on_mobile_non_academic  procrastination_and_grade_outcome
+mean                0.0000 -0.0000  ...                             -0.0000                            -0.0000
+std                 1.0012  1.0012  ...                              1.0012                             1.0012
 
 [2 rows x 7 columns]
 
@@ -492,6 +489,9 @@ Gráfico guardado: 08_log_transform.png
 ======================================================================
 28. GUARDAR DATASET PROCESADO
 ======================================================================
+Gráfico guardado: 09_pca.png
+Gráfico guardado: 10_tsne.png
+Gráfico guardado: 11_umap.png
 Dataset guardado: c:\Users\maria\OneDrive\Escritorio\AAutomatico\Ocampo_Maria_Alejandra\Proyecto1\Procrastinacion_kaggle\data_procesada.csv
 Dimensiones: 407 filas x 10 columnas
 
