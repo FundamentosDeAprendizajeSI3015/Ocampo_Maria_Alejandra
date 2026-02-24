@@ -1,0 +1,43 @@
+﻿id,hora_inicio,hora_fin,correo,nombre,hora_ultima_modificacion,frecuencia_planificacion_tareas,frecuencia_dividir_tareas,frecuencia_autonomia_sin_presion,frecuencia_concentracion_estudio,frecuencia_evitar_tareas_dificiles,frecuencia_revisar_celular_estudio,frecuencia_interferencia_redes,frecuencia_dejar_ultimo_momento
+1,2026-02-13 13:16:32,2026-02-13 13:18:34,anonymous,,,A veces,A veces,Siempre,Frecuentemente,A veces,Frecuentemente,A veces,Rara vez
+2,2026-02-13 13:45:13,2026-02-13 13:46:12,anonymous,,,Rara vez,A veces,Rara vez,Rara vez,A veces,Frecuentemente,Frecuentemente,A veces
+3,2026-02-13 13:48:55,2026-02-13 13:49:25,anonymous,,,Frecuentemente,Frecuentemente,Siempre,A veces,A veces,Frecuentemente,Frecuentemente,A veces
+4,2026-02-13 13:48:06,2026-02-13 13:51:14,anonymous,,,Rara vez,Nunca,Frecuentemente,Rara vez,Frecuentemente,Frecuentemente,Frecuentemente,A veces
+5,2026-02-13 13:51:53,2026-02-13 13:52:35,anonymous,,,Siempre,Frecuentemente,Siempre,A veces,A veces,A veces,Frecuentemente,Rara vez
+6,2026-02-13 13:53:59,2026-02-13 13:55:40,anonymous,,,A veces,Frecuentemente,A veces,Siempre,Rara vez,Rara vez,A veces,A veces
+7,2026-02-13 13:54:24,2026-02-13 13:56:20,anonymous,,,Frecuentemente,Frecuentemente,Siempre,Frecuentemente,A veces,A veces,Rara vez,A veces
+8,2026-02-13 13:56:11,2026-02-13 13:56:54,anonymous,,,Siempre,Frecuentemente,A veces,A veces,Frecuentemente,Frecuentemente,Frecuentemente,Rara vez
+9,2026-02-13 13:55:09,2026-02-13 13:56:55,anonymous,,,Rara vez,Rara vez,Rara vez,A veces,Frecuentemente,Siempre,Frecuentemente,Frecuentemente
+10,2026-02-13 13:57:51,2026-02-13 13:58:28,anonymous,,,Frecuentemente,Frecuentemente,Rara vez,A veces,Rara vez,Frecuentemente,Frecuentemente,A veces
+11,2026-02-13 13:59:55,2026-02-13 14:00:28,anonymous,,,Rara vez,Rara vez,Rara vez,Nunca,Frecuentemente,Siempre,Siempre,Siempre
+12,2026-02-13 13:59:41,2026-02-13 14:00:32,anonymous,,,Nunca,Rara vez,Frecuentemente,Frecuentemente,Frecuentemente,Frecuentemente,Rara vez,Frecuentemente
+13,2026-02-13 14:00:42,2026-02-13 14:01:40,anonymous,,,Frecuentemente,Rara vez,Siempre,A veces,Frecuentemente,Siempre,Siempre,Rara vez
+14,2026-02-13 14:02:31,2026-02-13 14:03:07,anonymous,,,Frecuentemente,A veces,Siempre,Frecuentemente,A veces,A veces,Frecuentemente,Rara vez
+15,2026-02-13 14:03:06,2026-02-13 14:04:32,anonymous,,,Rara vez,A veces,A veces,Rara vez,A veces,Frecuentemente,Frecuentemente,A veces
+16,2026-02-13 14:04:19,2026-02-13 14:05:54,anonymous,,,A veces,A veces,Frecuentemente,Frecuentemente,A veces,A veces,A veces,Rara vez
+17,2026-02-13 14:05:52,2026-02-13 14:06:36,anonymous,,,A veces,Frecuentemente,Frecuentemente,Frecuentemente,A veces,Frecuentemente,A veces,A veces
+18,2026-02-13 14:10:59,2026-02-13 14:16:18,anonymous,,,A veces,Nunca,Frecuentemente,Frecuentemente,Frecuentemente,Siempre,Frecuentemente,A veces
+19,2026-02-13 14:16:38,2026-02-13 14:19:17,anonymous,,,A veces,A veces,Siempre,A veces,Frecuentemente,Frecuentemente,Frecuentemente,Siempre
+20,2026-02-13 14:22:16,2026-02-13 14:23:42,anonymous,,,A veces,A veces,Rara vez,Rara vez,A veces,A veces,Frecuentemente,Frecuentemente
+21,2026-02-13 14:25:53,2026-02-13 14:26:50,anonymous,,,Siempre,Frecuentemente,Siempre,Frecuentemente,Rara vez,Siempre,A veces,Rara vez
+22,2026-02-13 14:28:29,2026-02-13 14:29:32,anonymous,,,A veces,A veces,Frecuentemente,A veces,Rara vez,Frecuentemente,Frecuentemente,A veces
+23,2026-02-13 14:31:00,2026-02-13 14:32:56,anonymous,,,A veces,Frecuentemente,Frecuentemente,A veces,Frecuentemente,Siempre,Frecuentemente,Siempre
+24,2026-02-13 15:39:06,2026-02-13 15:39:57,anonymous,,,Rara vez,Nunca,Frecuentemente,Rara vez,Siempre,Siempre,Siempre,Siempre
+25,2026-02-13 15:39:50,2026-02-13 15:42:19,anonymous,,,Siempre,Rara vez,Siempre,A veces,Frecuentemente,A veces,Frecuentemente,Rara vez
+26,2026-02-13 15:47:36,2026-02-13 15:48:16,anonymous,,,Nunca,Nunca,Nunca,Rara vez,Siempre,A veces,Siempre,Siempre
+27,2026-02-13 15:56:43,2026-02-13 15:58:47,anonymous,,,Frecuentemente,Rara vez,Frecuentemente,A veces,A veces,Frecuentemente,A veces,A veces
+28,2026-02-13 16:28:45,2026-02-13 16:30:55,anonymous,,,A veces,Rara vez,Rara vez,A veces,Frecuentemente,Frecuentemente,A veces,Frecuentemente
+29,2026-02-13 17:01:59,2026-02-13 17:05:45,anonymous,,,Rara vez,Rara vez,Frecuentemente,A veces,Nunca,Frecuentemente,Frecuentemente,Frecuentemente
+30,2026-02-13 17:17:12,2026-02-13 17:19:53,anonymous,,,Rara vez,Rara vez,Frecuentemente,Rara vez,Nunca,Frecuentemente,Frecuentemente,A veces
+31,2026-02-13 17:30:46,2026-02-13 17:32:25,anonymous,,,A veces,Rara vez,A veces,Rara vez,Frecuentemente,Frecuentemente,Frecuentemente,Siempre
+32,2026-02-13 17:58:14,2026-02-13 18:00:56,anonymous,,,Rara vez,Rara vez,Frecuentemente,A veces,Frecuentemente,Frecuentemente,Frecuentemente,A veces
+33,2026-02-13 18:20:46,2026-02-13 18:21:48,anonymous,,,A veces,Nunca,Nunca,A veces,Rara vez,Siempre,Frecuentemente,A veces
+34,2026-02-13 18:25:33,2026-02-13 18:26:25,anonymous,,,A veces,Nunca,Nunca,Frecuentemente,Siempre,Siempre,Siempre,Siempre
+35,2026-02-13 19:11:03,2026-02-13 19:12:42,anonymous,,,Siempre,A veces,Siempre,Frecuentemente,Rara vez,A veces,A veces,Rara vez
+36,2026-02-13 21:10:13,2026-02-13 21:12:02,anonymous,,,A veces,A veces,Frecuentemente,Frecuentemente,Frecuentemente,Frecuentemente,Frecuentemente,Frecuentemente
+37,2026-02-13 21:18:42,2026-02-13 21:19:33,anonymous,,,Frecuentemente,Rara vez,A veces,A veces,A veces,Frecuentemente,Frecuentemente,Frecuentemente
+38,2026-02-13 22:47:10,2026-02-13 22:49:38,anonymous,,,A veces,Frecuentemente,Nunca,Frecuentemente,A veces,Nunca,Nunca,Nunca
+39,2026-02-14 03:03:33,2026-02-14 03:05:07,anonymous,,,Rara vez,Frecuentemente,A veces,Rara vez,Frecuentemente,Frecuentemente,Frecuentemente,Frecuentemente
+40,2026-02-14 08:48:50,2026-02-14 08:50:02,anonymous,,,Rara vez,Nunca,A veces,A veces,Frecuentemente,Frecuentemente,Siempre,Frecuentemente
+41,2026-02-14 11:15:30,2026-02-14 11:16:33,anonymous,,,Siempre,Siempre,Siempre,A veces,A veces,Frecuentemente,Siempre,Rara vez
+42,2026-02-14 11:16:45,2026-02-14 11:17:06,anonymous,,,Rara vez,Rara vez,Rara vez,Rara vez,Rara vez,Siempre,Siempre,Siempre
