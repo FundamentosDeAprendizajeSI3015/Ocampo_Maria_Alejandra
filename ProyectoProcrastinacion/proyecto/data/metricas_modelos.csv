@@ -1,0 +1,5 @@
+Dataset,Modelo,Accuracy,F1-weighted
+Original,Arbol Decision,0.8,0.7980952380952381
+Corregido,Arbol Decision,0.7333333333333333,0.7399267399267399
+Original,Reg Logistica,0.9333333333333333,0.9238095238095239
+Corregido,Reg Logistica,0.8666666666666667,0.8666666666666667
